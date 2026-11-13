@@ -1,0 +1,3 @@
+- [ ] Rebrand all site pages and shared UI as TezzEV using the supplied logo and scooter images.
+- [ ] Add the launch teaser section, update launch-era copy, and remove unsupported city/fleet claims.
+- [ ] Validate page metadata, preview behavior, and production build; then apply required dependency floor update.
