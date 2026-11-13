@@ -1,110 +1,197 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Clock,
-  MessageCircle,
-  Instagram,
-  Twitter,
-  Facebook,
-} from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
-import { RegistrationForm } from "@/components/RegistrationForm";
+import { Phone, Mail, Clock, MapPin, Send, MessageSquare } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
+import { toast } from "sonner";
+import { TEZZ_CONFIG } from "@/lib/config";
 
 export const Route = createFileRoute("/contact")({
-  component: Contact,
+  component: ContactPage,
   head: () => ({
     meta: [
-      { title: "Contact Us | SoraRider" },
+      { title: "Contact Us — TezzEV Jaipur Hub" },
       {
         name: "description",
-        content: "Reach the SoraRider team. Support 24/7 across all our cities.",
+        content: "Get in touch with TezzEV for electric scooter rentals, support, and waitlist inquiries in Jaipur.",
       },
     ],
   }),
 });
 
-function Contact() {
+function ContactPage() {
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !mobile.trim()) {
+      toast.error("Please enter your name and mobile number.");
+      return;
+    }
+    setIsSubmitting(true);
+    await new Promise((r) => setTimeout(r, 600));
+    setIsSubmitting(false);
+    toast.success("Message Transmitted!", {
+      description: `Thank you, ${name}. Our Jaipur fleet desk will call you back shortly.`,
+    });
+    setName("");
+    setMobile("");
+    setMessage("");
+  };
+
   return (
-    <>
+    <div className="bg-white text-[#081330] w-full">
+      {/* 1. Page Header */}
       <PageHeader
-        eyebrow="Contact"
-        title="Let's get you | on the road"
-        subtitle="Register as a rider or ask us anything — we usually reply within a few hours."
+        breadcrumb="Contact"
+        title="Contact TezzEV"
+        subtitle="Have questions about vehicle booking, battery swapping, or waitlist? We're here to help."
       />
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_420px] lg:px-8">
-          <div>
-            <span className="inline-block rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand">
-              Reach Us
-            </span>
-            <h2 className="mt-3 text-3xl font-extrabold text-ink sm:text-4xl">
-              We're here <span className="text-brand">24/7</span>
-            </h2>
-            <p className="mt-2 max-w-md text-muted-foreground">
-              Pick the channel that suits you — every message is answered by a real human.
-            </p>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {[
-                { Icon: Phone, label: "Phone", value: "+91 9950455461" },
-                { Icon: Mail, label: "Email", value: "support@SoraRider.com" },
-                {
-                  Icon: MapPin,
-                  label: "Headquarters",
-                  value: "Sora Ev Pvt Ltd,B-18, 2nd Floor, Shiv Marg, Bani Park, Jaipur, Rajasthan 302015, India",
-                },
-                { Icon: Clock, label: "Support Hours", value: "Monday to Sunday, 9:00 AM to 7:00 PM" },
-              ].map((c) => (
-                <div
-                  key={c.label}
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl"
-                >
-                  <div className="grid h-11 w-11 place-items-center rounded-xl bg-linear-to-br from-brand to-brand/70 text-white shadow-md shadow-brand/30">
-                    <c.Icon className="h-5 w-5" />
-                  </div>
-                  <div className="mt-4 text-[11px] uppercase tracking-wider text-muted-foreground">
-                    {c.label}
-                  </div>
-                  <div className="mt-1 font-bold text-ink">{c.value}</div>
+      {/* 2. Contact Cards & Form (Skywash Background with Layered Depth) */}
+      <section className="relative overflow-hidden py-12 md:py-16 bg-skywash border-b border-blue-200/80">
+        <div className="pointer-events-none absolute -left-20 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute right-10 bottom-10 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 pattern-dots opacity-30" />
+
+        <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            {/* Left 5 Cols: Cards */}
+            <div className="lg:col-span-5 space-y-4">
+              {/* Phone */}
+              <div className="clean-card p-5 flex items-start gap-4">
+                <div className="icon-box shrink-0">
+                  <Phone className="h-5 w-5" />
                 </div>
-              ))}
-            </div>
-
-            {/* Social */}
-            <div className="mt-8">
-              <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Follow the ride
-              </div>
-              <div className="mt-3 flex gap-3">
-                {[Instagram, Twitter, Facebook, MessageCircle].map((Ic, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="grid h-11 w-11 place-items-center rounded-xl border border-border bg-card text-ink transition hover:-translate-y-1 hover:border-brand hover:text-brand hover:shadow-lg"
-                  >
-                    <Ic className="h-5 w-5" />
+                <div>
+                  <div className="text-xs font-semibold text-slate-500 uppercase">Phone Helpline</div>
+                  <a href={`tel:${TEZZ_CONFIG.launch.phone}`} className="font-heading font-bold text-base text-[#081330] hover:text-blue-600 block mt-0.5">
+                    {TEZZ_CONFIG.launch.phone}
                   </a>
-                ))}
+                  <div className="text-xs text-slate-500 mt-0.5">Support & 24/7 Breakdown</div>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="clean-card p-5 flex items-start gap-4">
+                <div className="icon-box shrink-0">
+                  <Mail className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-slate-500 uppercase">Email Us</div>
+                  <a href={`mailto:${TEZZ_CONFIG.launch.email}`} className="font-heading font-bold text-base text-[#081330] hover:text-blue-600 block mt-0.5">
+                    {TEZZ_CONFIG.launch.email}
+                  </a>
+                  <div className="text-xs text-slate-500 mt-0.5">General & business inquiries</div>
+                </div>
+              </div>
+
+              {/* WhatsApp */}
+              <div className="clean-card p-5 flex items-start gap-4">
+                <div className="icon-box shrink-0 bg-emerald-50 text-emerald-600">
+                  <FaWhatsapp className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-slate-500 uppercase">WhatsApp Chat</div>
+                  <a
+                    href={TEZZ_CONFIG.launch.socials.whatsapp}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-heading font-bold text-base text-emerald-700 hover:underline block mt-0.5"
+                  >
+                    Chat on WhatsApp
+                  </a>
+                  <div className="text-xs text-slate-500 mt-0.5">Fast message response</div>
+                </div>
+              </div>
+
+              {/* Address & Hours */}
+              <div className="clean-card p-5 space-y-3 bg-slate-50/50">
+                <div className="flex items-start gap-3">
+                  <MapPin className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
+                  <span className="text-xs text-slate-700 leading-relaxed">
+                    <strong>Jaipur Hub:</strong> {TEZZ_CONFIG.launch.headquarters}
+                  </span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Clock className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
+                  <span className="text-xs text-slate-700 leading-relaxed">
+                    <strong>Support Hours:</strong> {TEZZ_CONFIG.launch.supportHours}
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Map placeholder */}
-            <div className="mt-10 overflow-hidden rounded-2xl border border-border">
-              <iframe
-                title="SoraRider HQ"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=75.75%2C26.85%2C75.85%2C26.95&layer=mapnik"
-                className="h-64 w-full"
-                loading="lazy"
-              />
+            {/* Right 7 Cols: Inquiry Form */}
+            <div className="lg:col-span-7">
+              <div className="clean-card p-6 sm:p-8">
+                <h3 className="font-heading font-bold text-xl text-[#081330] mb-2">
+                  Send us a message
+                </h3>
+                <p className="text-xs text-slate-500 mb-6">
+                  Fill in your details and we will get back to you within 2 to 4 hours.
+                </p>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Your Full Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="e.g. Amit Sharma"
+                      className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Mobile Number
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={mobile}
+                      onChange={(e) => setMobile(e.target.value)}
+                      placeholder="10-digit mobile number"
+                      className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Your Message or Question
+                    </label>
+                    <textarea
+                      rows={4}
+                      required
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Write your question here..."
+                      className="w-full rounded-xl border border-slate-300 p-3 text-sm text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary w-full py-3 text-sm justify-center disabled:opacity-60"
+                  >
+                    <span>{isSubmitting ? "Sending..." : "Submit Message"}</span>
+                    <Send className="h-4 w-4" />
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-          <div className="lg:sticky lg:top-24 lg:h-fit">
-            <RegistrationForm />
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

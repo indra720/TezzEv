@@ -1,33 +1,65 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
+import { TEZZ_CONFIG } from "@/lib/config";
 
 export const Route = createFileRoute("/refund-policy")({
-  component: RefundPolicy,
+  component: RefundPolicyPage,
+  head: () => ({
+    meta: [{ title: "Refund Policy — TezzEV" }],
+  }),
 });
 
-function RefundPolicy() {
+function RefundPolicyPage() {
   return (
-    <div className="bg-background min-h-screen pb-20">
-      <PageHeader title="Refund Policy" subtitle="Details on how refunds are handled for token recharges and payments." />
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 mt-12 prose prose-sm sm:prose-base text-muted-foreground">
-        <h3 className="text-xl font-medium text-ink">1. Token Recharge Payments</h3>
-        <p>Token recharge payments made during rider registration are used to activate your rider account and vehicle allocation. Once a token recharge is successfully processed and a rider ID is issued, it is generally non-refundable.</p>
+    <div className="bg-white text-[#081330] w-full">
+      <PageHeader
+        breadcrumb="Refund Policy"
+        title="Refund Policy"
+        subtitle="Quick, transparent security deposit returns with zero deduction surprises."
+      />
 
-        <h3 className="text-xl font-medium text-ink mt-8">2. Eligible Refund Cases</h3>
-        <p>Refunds may be considered in cases of duplicate payment, a technical error resulting in a failed registration, or where SORA RIDER is unable to allocate a vehicle after payment has been received.</p>
+      <section className="relative overflow-hidden py-12 md:py-16 bg-skywash border-b border-blue-200/80">
+        <div className="pointer-events-none absolute -left-20 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute right-10 bottom-10 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 pattern-dots opacity-30" />
 
-        <h3 className="text-xl font-medium text-ink mt-8">3. How to Request a Refund</h3>
-        <p>To request a refund, contact our support team at support@sorarider.com with your rider ID, payment receipt number, and reason for the request within 7 days of the transaction.</p>
+        <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
+          <div className="max-w-4xl mx-auto">
+            <div className="clean-card p-6 sm:p-10 text-sm text-slate-700 space-y-6 leading-relaxed">
+              <p>
+                At TezzEV, we believe your deposit is your money. Here is our straightforward refund process.
+              </p>
 
-        <h3 className="text-xl font-medium text-ink mt-8">4. Processing Time</h3>
-        <p>Approved refunds are processed back to the original payment method within 7–14 business days, subject to your bank's or payment provider's processing timelines.</p>
+              <div>
+                <h3 className="font-heading font-bold text-lg text-[#081330] mb-2">
+                  1. Security Deposit Refund
+                </h3>
+                <p>
+                  When you return your scooter and battery at any Tezz Hub, our hub team does a quick 5-minute check. Your full refundable deposit is credited straight to your bank account within {TEZZ_CONFIG.placeholders.depositRefundHours}.
+                </p>
+              </div>
 
-        <h3 className="text-xl font-medium text-ink mt-8">5. Non-Refundable Situations</h3>
-        <p>Refunds will not be issued for recharges already utilized, accounts suspended due to violation of our Terms & Conditions, or requests made after the eligibility window.</p>
+              <div>
+                <h3 className="font-heading font-bold text-lg text-[#081330] mb-2">
+                  2. Unused Wallet Balance
+                </h3>
+                <p>
+                  Any unused prepaid balance in your rider wallet is 100% refundable to your UPI or bank account whenever you pause or end your subscription.
+                </p>
+              </div>
 
-        <h3 className="text-xl font-medium text-ink mt-8">6. Contact Us</h3>
-        <p>For any refund-related queries, reach us at support@sorarider.com or call +91 12345 67890.</p>
-      </div>
+              <div>
+                <h3 className="font-heading font-bold text-lg text-[#081330] mb-2">
+                  3. Pre-Launch Waitlist Advance
+                </h3>
+                <p>
+                  Any pre-registration or reservation tokens booked before physical vehicle delivery are 100% refundable at any time with no cancellation charges.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

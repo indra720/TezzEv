@@ -1,278 +1,280 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import { 
-  User, 
-  Wallet, 
-  Bike, 
-  AlertTriangle, 
-  PlayCircle, 
-  MessageSquare, 
-  ChevronRight, 
-  CheckCircle2, 
-  Clock,
-  QrCode,
-  ShieldCheck,
-  CreditCard
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { toast } from "sonner";
 import { useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { PageHeader } from "@/components/PageHeader";
+import {
+  User,
+  Wallet,
+  Bike,
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
+  Send,
+  Zap,
+  X,
+} from "lucide-react";
+import { toast } from "sonner";
+import { TEZZ_CONFIG } from "@/lib/config";
 
 export const Route = createFileRoute("/rider-dashboard")({
-  component: RiderDashboard,
+  component: RiderDashboardPage,
   head: () => ({
     meta: [
-      { title: "Rider Dashboard — Manage Your SORA RIDER Account" },
+      { title: "Rider Cockpit Dashboard Preview — TezzEV" },
+      {
+        name: "description",
+        content: "Preview your TezzEV pilot cockpit: wallet, streak ring, assigned vehicle, and 15-minute breakdown SOS.",
+      },
     ],
   }),
 });
 
-function RiderDashboard() {
+function RiderDashboardPage() {
+  const [walletBalance, setWalletBalance] = useState(500);
   const [suggestion, setSuggestion] = useState("");
-  const handleSOS = () => {
-    toast.error("Breakdown SOS Raised!", {
-      description: "Our nearest support team will contact you within 15 minutes.",
+  const [sosModalOpen, setSosModalOpen] = useState(false);
+
+  const handleRecharge = () => {
+    setWalletBalance((prev) => prev + 250);
+    toast.success("Wallet Recharged with ₹250!", {
+      description: "Mock payment updated.",
     });
-    window.location.href = "tel:9950455461";
+  };
+
+  const handleConfirmSOS = () => {
+    setSosModalOpen(false);
+    toast.error("15-Minute SOS Alert Sent!", {
+      description: `Technician dispatched to your coordinates. Helpline: ${TEZZ_CONFIG.launch.phone}`,
+    });
   };
 
   const handleSuggestion = (e: React.FormEvent) => {
     e.preventDefault();
     if (!suggestion.trim()) return;
-    toast.success("Suggestion Submitted!", {
-      description: "Thank you for helping us make SORA RIDER better.",
+    toast.success("Suggestion Received!", {
+      description: "Thank you for helping us improve TezzEV.",
     });
     setSuggestion("");
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/50 pb-20">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-100 pt-10 pb-6">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-2xl font-medium text-ink">RIDER DASHBOARD</h1>
-          <p className="text-sm text-muted-foreground mt-1">Your profile, wallet balance, KYC status and vehicle details at a glance.</p>
-        </div>
-      </div>
+    <div className="bg-white text-[#081330] w-full">
+      {/* 1. Page Header */}
+      <PageHeader
+        breadcrumb="Rider Dashboard"
+        title="Rider Cockpit Preview"
+        subtitle="Live preview of your rider profile, wallet balance, assigned vehicle, and emergency help."
+      />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* Left Column: Profile & Wallet */}
-          <div className="lg:col-span-8 space-y-8">
-            
-            {/* Rider Profile Card */}
-            <motion.section 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm"
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="h-16 w-16 rounded-2xl bg-brand/10 flex items-center justify-center text-brand">
-                    <User className="h-8 w-8" />
-                </div>
-                <div>
-                    <h2 className="text-lg font-medium text-ink">Rider Profile</h2>
-                    <p className="text-xs text-muted-foreground">Basic information linked to your SORA RIDER rider ID.</p>
-                </div>
-              </div>
+      <section className="relative overflow-hidden py-12 md:py-16 bg-mesh border-b border-blue-200/80">
+        <div className="pointer-events-none absolute -left-20 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute right-10 bottom-10 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 pattern-dots opacity-30" />
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-4 border-t border-gray-50">
-                <div className="space-y-1">
-                    <p className="text-[10px] font-medium uppercase text-muted-foreground tracking-wider">ID</p>
-                    <p className="text-sm font-medium text-brand">SORA-000016</p>
+        <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Left 8 Cols */}
+            <div className="lg:col-span-8 space-y-6">
+              {/* Profile Card */}
+              <div className="clean-card p-6 sm:p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="h-14 w-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                    <User className="h-7 w-7" />
+                  </div>
+                  <div>
+                    <h2 className="font-heading font-bold text-xl text-[#081330]">Rahul Sharma</h2>
+                    <p className="text-xs text-slate-500">Pilot ID: TEZZ-PILOT-#000842 • Jaipur Hub</p>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                    <p className="text-[10px] font-medium uppercase text-muted-foreground tracking-wider">Rider Name</p>
-                    <p className="text-sm font-medium text-ink">Registered Rider</p>
-                </div>
-                <div className="space-y-1">
-                    <p className="text-[10px] font-medium uppercase text-muted-foreground tracking-wider">City</p>
-                    <p className="text-sm font-medium text-ink">Jaipur</p>
-                </div>
-                <div className="space-y-1">
-                    <p className="text-[10px] font-medium uppercase text-muted-foreground tracking-wider">KYC Status</p>
-                    <div className="flex items-center gap-1.5 text-amber-500">
-                        <Clock className="h-3 w-3" />
-                        <span className="text-sm font-medium uppercase">Pending</span>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-100 text-xs">
+                  <div>
+                    <span className="text-slate-400 font-medium">City:</span>
+                    <div className="font-bold text-slate-800 mt-0.5">Jaipur, RJ</div>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-medium">Document Check:</span>
+                    <div className="font-bold text-emerald-600 mt-0.5 flex items-center gap-1">
+                      <CheckCircle2 className="h-3.5 w-3.5" />
+                      Approved
                     </div>
-                </div>
-              </div>
-              <div className="mt-6 flex items-center gap-2 px-3 py-2 bg-emerald-50 rounded-xl w-fit">
-                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                <span className="text-xs font-medium text-emerald-700">Account Status: Active</span>
-              </div>
-            </motion.section>
-
-            {/* Wallet & Recharge Card */}
-            <motion.section 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm overflow-hidden relative"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand/5 blur-3xl rounded-full" />
-              
-              <div className="flex items-center gap-4 mb-6 relative">
-                <div className="h-16 w-16 rounded-2xl bg-brand/10 flex items-center justify-center text-brand">
-                    <Wallet className="h-8 w-8" />
-                </div>
-                <div>
-                    <h2 className="text-lg font-medium text-ink">Wallet & Recharge</h2>
-                    <p className="text-xs text-muted-foreground">Minimum ₹250/day recharge required.</p>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-medium">Battery Swaps:</span>
+                    <div className="font-bold text-blue-600 mt-0.5">Unlimited</div>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-medium">Account:</span>
+                    <div className="font-bold text-emerald-600 mt-0.5">Active</div>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-8 pt-4 border-t border-gray-50 relative">
-                <div className="space-y-6">
-                    <div>
-                        <p className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">Wallet Balance</p>
-                        <p className="text-4xl font-medium text-ink">₹250</p>
+              {/* Wallet & Streak Ring Card */}
+              <div className="clean-card p-6 sm:p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="icon-box">
+                      <Wallet className="h-5 w-5" />
                     </div>
                     <div>
-                        <div className="flex justify-between text-xs font-medium mb-2">
-                            <span className="text-muted-foreground">Recharge Streak</span>
-                            <span className="text-brand">Day 1 of 8</span>
-                        </div>
-                        <Progress value={12.5} className="h-2" />
-                        <p className="text-[10px] text-muted-foreground mt-2 italic">8 consecutive days compulsory for continued access.</p>
+                      <h3 className="font-heading font-bold text-lg text-[#081330]">Rider Wallet</h3>
+                      <p className="text-xs text-slate-500">Daily rent deduction & recharge streak</p>
                     </div>
+                  </div>
+                  <button onClick={handleRecharge} className="btn-primary text-xs py-2 px-4">
+                    <Zap className="h-3.5 w-3.5" />
+                    <span>Quick Recharge (₹250)</span>
+                  </button>
                 </div>
 
-                <div className="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-                    <p className="text-xs font-medium text-ink mb-4">Quick Recharge via UPI/Card</p>
-                    <div className="flex gap-2 mb-4">
-                        <div className="relative flex-1 text-2xl font-medium text-ink bg-white border rounded-xl flex items-center px-4">
-                            <span className="text-muted-foreground mr-1 text-base font-normal">₹</span> 250
-                        </div>
-                        <Button className="h-12 bg-brand hover:bg-brand/90 px-6 rounded-xl font-medium shadow-md shadow-brand/20">
-                            Recharge
-                        </Button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-slate-100 items-center">
+                  <div>
+                    <span className="text-xs text-slate-500 font-medium">Available Balance</span>
+                    <div className="font-heading font-extrabold text-4xl text-[#081330] mt-1">
+                      ₹{walletBalance}
                     </div>
-                    <div className="flex flex-wrap items-center gap-3 opacity-60">
-                        <QrCode className="h-4 w-4" />
-                        <CreditCard className="h-4 w-4" />
-                        <p className="text-[10px] font-medium">Powered by Razorpay</p>
+                    <span className="text-xs text-emerald-600 font-medium mt-1 inline-block">
+                      Good for next {Math.floor(walletBalance / 250)} days of rental
+                    </span>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <div className="flex justify-between text-xs font-semibold mb-1.5">
+                      <span className="text-slate-700">Recharge Streak</span>
+                      <span className="text-blue-600">Day 4 of 8</span>
                     </div>
-                </div>
-              </div>
-            </motion.section>
-
-            {/* Vehicle Details Card */}
-            <motion.section 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm"
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="h-16 w-16 rounded-2xl bg-brand/10 flex items-center justify-center text-brand">
-                    <Bike className="h-8 w-8" />
-                </div>
-                <div>
-                    <h2 className="text-lg font-medium text-ink">Vehicle Details</h2>
-                    <p className="text-xs text-muted-foreground">Scooter registered to this rider account.</p>
+                    <div className="h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+                      <div className="h-full bg-blue-600 w-1/2 rounded-full" />
+                    </div>
+                    <p className="text-[11px] text-slate-500 mt-2">
+                      Maintain 8 consecutive days of active riding to unlock bonus referral perks.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-50">
-                <div className="space-y-1">
-                    <p className="text-[10px] font-medium uppercase text-muted-foreground tracking-wider">Model</p>
-                    <p className="text-sm font-medium text-ink">SORA EV</p>
+              {/* Vehicle Telemetry Card */}
+              <div className="clean-card p-6 sm:p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="icon-box">
+                    <Bike className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-lg text-[#081330]">Assigned Vehicle</h3>
+                    <p className="text-xs text-slate-500">TezzEV Commercial Fleet Edition</p>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                    <p className="text-[10px] font-medium uppercase text-muted-foreground tracking-wider">VIN / Chassis</p>
-                    <p className="text-sm font-medium text-muted-foreground italic">Will be updated after verification</p>
+
+                {/* Telemetry stats: 1 col mobile, 2 cols md, 3 cols lg */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 border-t border-slate-100 text-xs">
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <span className="text-slate-400 font-medium">Model:</span>
+                    <div className="font-bold text-slate-800 mt-0.5">TezzEV Sport Blue</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <span className="text-slate-400 font-medium">Chassis Number:</span>
+                    <div className="font-bold text-slate-800 mt-0.5">TEZZ-IN-2026-0842</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <span className="text-slate-400 font-medium">Battery Status:</span>
+                    <div className="font-bold text-emerald-600 mt-0.5">100% Fully Charged</div>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                    <p className="text-[10px] font-medium uppercase text-muted-foreground tracking-wider">Registration</p>
-                    <p className="text-sm font-medium text-amber-500">Pending Verification</p>
+              </div>
+            </div>
+
+            {/* Right 4 Cols: Big Red SOS & Suggestion Box */}
+            <div className="lg:col-span-4 space-y-6">
+              {/* Big Red SOS Card */}
+              <div className="clean-card p-6 bg-red-50/50 border-2 border-red-200 text-center">
+                <div className="h-12 w-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-3">
+                  <AlertTriangle className="h-6 w-6" />
+                </div>
+                <h3 className="font-heading font-bold text-lg text-red-900 mb-1">
+                  Breakdown SOS
+                </h3>
+                <p className="text-xs text-red-700 leading-relaxed mb-5">
+                  Scooter broken down or flat tyre? Press SOS. Our nearest Jaipur mobile technician will reach you within 15 minutes to fix or swap the bike.
+                </p>
+
+                <button
+                  onClick={() => setSosModalOpen(true)}
+                  className="w-full py-3.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-heading font-bold text-xs uppercase tracking-wider shadow-md shadow-red-500/20 transition-all cursor-pointer"
+                >
+                  Raise Breakdown SOS
+                </button>
+                <div className="mt-3 text-[11px] text-red-600/80 font-medium">
+                  Direct helpline: {TEZZ_CONFIG.launch.phone}
                 </div>
               </div>
-            </motion.section>
-          </div>
 
-          {/* Right Column: SOS, Tutorials, Suggestions */}
-          <div className="lg:col-span-4 space-y-8">
-            
-            {/* Breakdown SOS */}
-            <motion.section 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="rounded-3xl bg-red-50 border border-red-100 p-6 shadow-sm"
-            >
-              <div className="flex items-center gap-3 text-red-600 mb-4">
-                <AlertTriangle className="h-6 w-6" />
-                <h2 className="text-lg font-medium">Breakdown SOS</h2>
+              {/* Suggestion Box */}
+              <div className="clean-card p-6">
+                <h3 className="font-heading font-bold text-base text-[#081330] mb-2">
+                  Feedback & Suggestions
+                </h3>
+                <p className="text-xs text-slate-500 mb-4">
+                  Share ideas on swap hub locations or new features.
+                </p>
+
+                <form onSubmit={handleSuggestion} className="space-y-3">
+                  <textarea
+                    rows={4}
+                    value={suggestion}
+                    onChange={(e) => setSuggestion(e.target.value)}
+                    placeholder="Write your feedback..."
+                    className="w-full rounded-xl border border-slate-300 p-3 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600"
+                  />
+                  <button type="submit" className="btn-secondary w-full text-xs py-2.5 justify-center">
+                    <Send className="h-3.5 w-3.5" />
+                    <span>Submit Feedback</span>
+                  </button>
+                </form>
               </div>
-              <p className="text-xs text-red-700/80 leading-relaxed mb-6">
-                Vehicle broken down? Raise an SOS — our nearest support team collects it within 15 minutes of confirmation and issues you a replacement bike.
-              </p>
-              <Button 
-                onClick={handleSOS}
-                variant="destructive" 
-                className="w-full h-12 rounded-xl font-medium shadow-lg shadow-red-200"
-              >
-                Raise Breakdown SOS
-              </Button>
-              <p className="text-[10px] text-red-600/60 mt-3 text-center italic">
-                Registered vehicle and driver details are shared automatically.
-              </p>
-            </motion.section>
-
-            {/* Tutorials */}
-            {/* <motion.section 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-              className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <PlayCircle className="h-6 w-6 text-brand" />
-                <h2 className="text-lg font-medium text-ink">Tutorials</h2>
-              </div>
-              <p className="text-xs text-muted-foreground mb-6">
-                How to use the app, recharge wallet, referrals, and connect with support.
-              </p>
-              <Button variant="outline" className="w-full h-12 rounded-xl border-brand/20 text-brand font-medium group">
-                Watch Tutorial Videos <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </motion.section> */}
-
-            {/* Suggestion Box */}
-            <motion.section 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <MessageSquare className="h-6 w-6 text-brand" />
-                <h2 className="text-lg font-medium text-ink">Suggestion Box</h2>
-              </div>
-              <form onSubmit={handleSuggestion} className="space-y-4">
-                <textarea 
-                  value={suggestion}
-                  onChange={(e) => setSuggestion(e.target.value)}
-                  placeholder="Share your idea or feedback..."
-                  className="w-full min-h-[100px] rounded-2xl border border-gray-100 bg-gray-50 p-4 text-xs outline-none focus:border-brand/40 transition-colors"
-                />
-                <Button type="submit" className="w-full h-11 rounded-xl bg-ink hover:bg-ink/90 font-medium">
-                  Submit Suggestion
-                </Button>
-              </form>
-            </motion.section>
-
-            {/* Trusted Shield */}
-            <div className="flex flex-col items-center justify-center pt-4 opacity-40 grayscale">
-                <ShieldCheck className="h-10 w-10 text-brand mb-2" />
-                <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-ink">Secured by SORA RIDER</p>
             </div>
           </div>
-
         </div>
-      </div>
+      </section>
+
+      {/* SOS Modal */}
+      {sosModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full border border-slate-200 shadow-2xl text-center relative">
+            <button
+              onClick={() => setSosModalOpen(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="h-14 w-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="h-7 w-7" />
+            </div>
+
+            <h3 className="font-heading font-bold text-xl text-slate-900 mb-2">
+              Confirm Breakdown SOS?
+            </h3>
+            <p className="text-xs text-slate-600 leading-relaxed mb-6">
+              This will send an emergency alert to our Jaipur field team with your scooter's location. A technician will call and arrive within 15 minutes.
+            </p>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleConfirmSOS}
+                className="btn-primary bg-red-600 hover:bg-red-700 flex-1 text-xs py-2.5 justify-center shadow-none"
+              >
+                Yes, Dispatch Help
+              </button>
+              <button
+                onClick={() => setSosModalOpen(false)}
+                className="btn-secondary flex-1 text-xs py-2.5 justify-center"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,126 +1,183 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { X, ChevronRight, Sparkles, Send, ChevronDown } from "lucide-react";
-import soraAvatar from "../assets/chatbot.jpeg"
+import { useState, useRef, useEffect } from "react";
+import { MessageSquare, X, Send, ChevronRight, Zap } from "lucide-react";
+import { TEZZ_CONFIG } from "@/lib/config";
 
-type Message = { sender: "user" | "ai"; text: string; options?: string[] };
+interface Message {
+  id: string;
+  sender: "bot" | "user";
+  text: string;
+}
 
-const menuOptions = [
-  "Sora Pilot – Work as a Rider",
-  "Sora Ads on Wheels – Advertise",
-  "Sora Rent-to-Own – Own an EV",
-  "Sora Franchise – Get assured returns",
-  "Sora Rental – Personal Use"
+const quickReplies = [
+  "Work as a Delivery Rider",
+  "How Battery Swap Works",
+  "Daily Rent Price",
+  "Join Waitlist",
+  "Roadside Breakdown Help",
 ];
-
-const welcomeMessage = "Hey, I’m Sora from Sora Electric — India’s leading EV rental platform! Which ride suits you today?";
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isTriggerExpanded, setIsTriggerExpanded] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: "1",
+      sender: "bot",
+      text: "Hi, I'm Tezz! How can I help you today with TezzEV electric scooters?",
+    },
+  ]);
   const [input, setInput] = useState("");
-  const [isOptionsOpen, setIsOptionsOpen] = useState(true);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const savedMessages = localStorage.getItem("sora_chat_history");
-    if (savedMessages) setMessages(JSON.parse(savedMessages));
-    else setMessages([{ sender: "ai", text: welcomeMessage, options: menuOptions }]);
-    
-    const interval = setInterval(() => {
-      setIsTriggerExpanded(true);
-      setTimeout(() => setIsTriggerExpanded(false), 3000);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("sora_chat_history", JSON.stringify(messages));
-    scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSend = (text: string) => {
-    const newMessages: Message[] = [...messages, { sender: "user", text }];
-    setMessages([...newMessages, { sender: "ai", text: welcomeMessage, options: menuOptions }]);
+  const handleSend = (textToSend?: string) => {
+    const query = textToSend || input;
+    if (!query.trim()) return;
+
+    const userMsg: Message = {
+      id: Date.now().toString(),
+      sender: "user",
+      text: query,
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
     setInput("");
+
+    setTimeout(() => {
+      let botResponse =
+        "TezzEV simple, affordable electric scooter rentals provide karta hai delivery riders aur city commuters ke liye.";
+
+      const lower = query.toLowerCase();
+      if (lower.includes("rider") || lower.includes("delivery")) {
+        botResponse =
+          "Delivery riders ke liye TezzEV best hai! Zero petrol expense, 2-minute battery swap, aur free regular maintenance. Aap pre-register kar sakte hain.";
+      } else if (lower.includes("swap") || lower.includes("battery")) {
+        botResponse =
+          "Tezz Hub par aakar 2 minute me charged battery swap kar sakte hain. Charging station par wait karne ki zaroorat nahi hai.";
+      } else if (lower.includes("price") || lower.includes("rent")) {
+        botResponse =
+          "Rent simple aur transparent hoga with no hidden charges. Actual price launch par declare hoga—aap 'Guess The Rent' game me guess submit kar sakte hain!";
+      } else if (lower.includes("waitlist")) {
+        botResponse =
+          "Waitlist join karne ke liye /waitlist page par jayein aur apna number submit karein.";
+      } else if (
+        lower.includes("help") ||
+        lower.includes("breakdown") ||
+        lower.includes("support")
+      ) {
+        botResponse = `Hamari 24/7 support team 15 minute me raste me help provide karti hai. Contact: ${TEZZ_CONFIG.launch.phone}.`;
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          sender: "bot",
+          text: botResponse,
+        },
+      ]);
+    }, 400);
   };
 
   return (
     <>
-      <motion.button
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-3 overflow-hidden rounded-full bg-brand p-[2px] text-white shadow-lg shadow-brand/50 border-2 border-white"
-        animate={{ width: isTriggerExpanded ? "auto" : 60 }}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <div className="h-[56px] w-[56px] flex-shrink-0 rounded-full overflow-hidden bg-white flex items-center justify-center">
-            <img src={soraAvatar} alt="Sora" className="h-full w-full object-cover" />
-        </div>
-        <motion.div animate={{ opacity: isTriggerExpanded ? 1 : 0 }} className="pr-4 whitespace-nowrap text-left">
-            <p className="font-bold text-sm">Hi, I'm Sora</p>
-            <p className="text-xs opacity-80">How can I help you?</p>
-        </motion.div>
-      </motion.button>
+      {/* Floating Chat Button: Positioned safely inside UI, above mobile sticky bar */}
+      <div className="fixed bottom-22 sm:bottom-6 right-4 sm:right-6 md:right-8 z-50">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-[#1647E8] hover:bg-[#2D6BFF] text-white shadow-xl shadow-blue-900/30 flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer border-2 border-white/60"
+          aria-label="Open Chat"
+        >
+          {isOpen ? (
+            <X className="h-5 w-5 sm:h-6 sm:w-6" />
+          ) : (
+            <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6" />
+          )}
+        </button>
+      </div>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="fixed bottom-24 right-6 z-50 w-60 md:w-80 h-76 lg:h-[500px] bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col"
-          >
-            <div className="bg-brand p-4 flex justify-between items-center text-white">
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5" />
-                <h4 className="font-bold">Sora Assistant</h4>
+      {/* Clean White & Royal Blue Chat Window: Stays strictly within screen boundaries */}
+      {isOpen && (
+        <div className="fixed bottom-36 sm:bottom-22 right-3 left-3 sm:left-auto sm:right-6 md:right-8 z-50 sm:w-96 h-[460px] max-h-[75vh] flex flex-col rounded-2xl bg-white border border-slate-200 shadow-2xl overflow-hidden">
+          {/* Header */}
+          <div className="bg-[#081330] p-4 text-white flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                <Zap className="h-4 w-4" />
               </div>
-              <button onClick={() => setIsOpen(false)}><X className="h-5 w-5" /></button>
+              <div>
+                <h3 className="font-heading font-bold text-sm">Tezz Assistant</h3>
+                <p className="text-[11px] text-emerald-400">Online • Jaipur Hub</p>
+              </div>
             </div>
-            
-            <div ref={scrollRef} className="flex-1 p-4 overflow-y-auto space-y-3 bg-gray-50">
-              {messages.map((m, i) => (
-                <div key={i} className={`flex flex-col ${m.sender === "user" ? "items-end" : "items-start"}`}>
-                  <div className={`p-3 rounded-2xl max-w-[90%] text-sm ${m.sender === "user" ? "bg-brand text-white rounded-br-none" : "bg-white border shadow-sm rounded-bl-none"}`}>
-                    {m.text}
-                  </div>
-                  {m.options && (
-                    <div className="mt-2 w-full">
-                        <button onClick={() => setIsOptionsOpen(!isOptionsOpen)} className="flex w-full items-center justify-between bg-white border border-brand/20 p-2 text-xs rounded-xl">
-                            Select an option <ChevronDown className={`h-3 w-3 transition ${isOptionsOpen ? "rotate-180" : ""}`} />
-                        </button>
-                        {isOptionsOpen && (
-                            <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} className="space-y-1 mt-1">
-                                {m.options.map((opt, idx) => (
-                                    <button key={idx} onClick={() => handleSend(opt)} className="flex w-full items-center justify-between bg-white border border-brand/20 p-2 text-xs rounded-xl hover:bg-brand/5 transition">
-                                    {opt} <ChevronRight className="h-3 w-3 text-brand" />
-                                    </button>
-                                ))}
-                            </motion.div>
-                        )}
-                    </div>
-                  )}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-slate-300 hover:text-white p-1"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+
+          {/* Messages Body */}
+          <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-sm">
+            {messages.map((m) => (
+              <div
+                key={m.id}
+                className={`flex flex-col ${m.sender === "user" ? "items-end" : "items-start"}`}
+              >
+                <div
+                  className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 leading-relaxed text-xs sm:text-sm ${
+                    m.sender === "user"
+                      ? "bg-blue-600 text-white rounded-br-xs"
+                      : "bg-white text-slate-800 border border-slate-200 shadow-xs rounded-bl-xs"
+                  }`}
+                >
+                  {m.text}
                 </div>
-              ))}
-            </div>
-
-            <div className="p-4 border-t bg-white shrink-0">
-              <div className="flex gap-2 items-center">
-                <input 
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && input && handleSend(input)}
-                  placeholder="Type..."
-                  className="flex-1 rounded-full border bg-gray-50 px-4 py-2 text-sm outline-none focus:border-brand min-w-0"
-                />
-                <button onClick={() => input && handleSend(input)} className="rounded-full bg-brand h-10 w-10 flex-shrink-0 flex items-center justify-center text-white">
-                  <Send className="h-4 w-4" />
-                </button>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Quick Reply Chips */}
+          <div className="p-2 bg-white border-t border-slate-100 flex gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-none">
+            {quickReplies.map((reply) => (
+              <button
+                key={reply}
+                onClick={() => handleSend(reply)}
+                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-[11px] font-medium text-slate-600 transition-colors shrink-0"
+              >
+                {reply}
+              </button>
+            ))}
+          </div>
+
+          {/* Input Box */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSend();
+            }}
+            className="p-3 bg-white border-t border-slate-200 flex items-center gap-2"
+          >
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask a question..."
+              className="flex-1 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-500 focus:bg-white"
+            />
+            <button
+              type="submit"
+              className="h-8 w-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shrink-0"
+            >
+              <Send className="h-3.5 w-3.5" />
+            </button>
+          </form>
+        </div>
+      )}
     </>
   );
 }

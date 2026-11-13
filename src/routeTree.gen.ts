@@ -9,15 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WaitlistRouteImport } from './routes/waitlist'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ScooterRouteImport } from './routes/scooter'
+import { Route as SavingsRouteImport } from './routes/savings'
 import { Route as RiderDashboardRouteImport } from './routes/rider-dashboard'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as OurScooterRouteImport } from './routes/our-scooter'
 import { Route as OurBikeRouteImport } from './routes/our-bike'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as GuessRentRouteImport } from './routes/guess-rent'
 import { Route as FaqsRouteImport } from './routes/faqs'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CancellationPolicyRouteImport } from './routes/cancellation-policy'
@@ -25,6 +30,11 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WaitlistRoute = WaitlistRouteImport.update({
+  id: '/waitlist',
+  path: '/waitlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -33,6 +43,16 @@ const TermsRoute = TermsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScooterRoute = ScooterRouteImport.update({
+  id: '/scooter',
+  path: '/scooter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavingsRoute = SavingsRouteImport.update({
+  id: '/savings',
+  path: '/savings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RiderDashboardRoute = RiderDashboardRouteImport.update({
@@ -60,6 +80,11 @@ const PricingRoute = PricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OurScooterRoute = OurScooterRouteImport.update({
+  id: '/our-scooter',
+  path: '/our-scooter',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OurBikeRoute = OurBikeRouteImport.update({
   id: '/our-bike',
   path: '/our-bike',
@@ -68,6 +93,11 @@ const OurBikeRoute = OurBikeRouteImport.update({
 const HowItWorksRoute = HowItWorksRouteImport.update({
   id: '/how-it-works',
   path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuessRentRoute = GuessRentRouteImport.update({
+  id: '/guess-rent',
+  path: '/guess-rent',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqsRoute = FaqsRouteImport.update({
@@ -108,15 +138,20 @@ export interface FileRoutesByFullPath {
   '/cancellation-policy': typeof CancellationPolicyRoute
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
+  '/guess-rent': typeof GuessRentRoute
   '/how-it-works': typeof HowItWorksRoute
   '/our-bike': typeof OurBikeRoute
+  '/our-scooter': typeof OurScooterRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/register': typeof RegisterRoute
   '/rider-dashboard': typeof RiderDashboardRoute
+  '/savings': typeof SavingsRoute
+  '/scooter': typeof ScooterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/waitlist': typeof WaitlistRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -125,15 +160,20 @@ export interface FileRoutesByTo {
   '/cancellation-policy': typeof CancellationPolicyRoute
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
+  '/guess-rent': typeof GuessRentRoute
   '/how-it-works': typeof HowItWorksRoute
   '/our-bike': typeof OurBikeRoute
+  '/our-scooter': typeof OurScooterRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/register': typeof RegisterRoute
   '/rider-dashboard': typeof RiderDashboardRoute
+  '/savings': typeof SavingsRoute
+  '/scooter': typeof ScooterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/waitlist': typeof WaitlistRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -143,15 +183,20 @@ export interface FileRoutesById {
   '/cancellation-policy': typeof CancellationPolicyRoute
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
+  '/guess-rent': typeof GuessRentRoute
   '/how-it-works': typeof HowItWorksRoute
   '/our-bike': typeof OurBikeRoute
+  '/our-scooter': typeof OurScooterRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/register': typeof RegisterRoute
   '/rider-dashboard': typeof RiderDashboardRoute
+  '/savings': typeof SavingsRoute
+  '/scooter': typeof ScooterRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/waitlist': typeof WaitlistRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -162,15 +207,20 @@ export interface FileRouteTypes {
     | '/cancellation-policy'
     | '/contact'
     | '/faqs'
+    | '/guess-rent'
     | '/how-it-works'
     | '/our-bike'
+    | '/our-scooter'
     | '/pricing'
     | '/privacy'
     | '/refund-policy'
     | '/register'
     | '/rider-dashboard'
+    | '/savings'
+    | '/scooter'
     | '/sitemap.xml'
     | '/terms'
+    | '/waitlist'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -179,15 +229,20 @@ export interface FileRouteTypes {
     | '/cancellation-policy'
     | '/contact'
     | '/faqs'
+    | '/guess-rent'
     | '/how-it-works'
     | '/our-bike'
+    | '/our-scooter'
     | '/pricing'
     | '/privacy'
     | '/refund-policy'
     | '/register'
     | '/rider-dashboard'
+    | '/savings'
+    | '/scooter'
     | '/sitemap.xml'
     | '/terms'
+    | '/waitlist'
   id:
     | '__root__'
     | '/'
@@ -196,15 +251,20 @@ export interface FileRouteTypes {
     | '/cancellation-policy'
     | '/contact'
     | '/faqs'
+    | '/guess-rent'
     | '/how-it-works'
     | '/our-bike'
+    | '/our-scooter'
     | '/pricing'
     | '/privacy'
     | '/refund-policy'
     | '/register'
     | '/rider-dashboard'
+    | '/savings'
+    | '/scooter'
     | '/sitemap.xml'
     | '/terms'
+    | '/waitlist'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -214,19 +274,31 @@ export interface RootRouteChildren {
   CancellationPolicyRoute: typeof CancellationPolicyRoute
   ContactRoute: typeof ContactRoute
   FaqsRoute: typeof FaqsRoute
+  GuessRentRoute: typeof GuessRentRoute
   HowItWorksRoute: typeof HowItWorksRoute
   OurBikeRoute: typeof OurBikeRoute
+  OurScooterRoute: typeof OurScooterRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
   RegisterRoute: typeof RegisterRoute
   RiderDashboardRoute: typeof RiderDashboardRoute
+  SavingsRoute: typeof SavingsRoute
+  ScooterRoute: typeof ScooterRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  WaitlistRoute: typeof WaitlistRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/waitlist': {
+      id: '/waitlist'
+      path: '/waitlist'
+      fullPath: '/waitlist'
+      preLoaderRoute: typeof WaitlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -239,6 +311,20 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scooter': {
+      id: '/scooter'
+      path: '/scooter'
+      fullPath: '/scooter'
+      preLoaderRoute: typeof ScooterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/savings': {
+      id: '/savings'
+      path: '/savings'
+      fullPath: '/savings'
+      preLoaderRoute: typeof SavingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rider-dashboard': {
@@ -276,6 +362,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/our-scooter': {
+      id: '/our-scooter'
+      path: '/our-scooter'
+      fullPath: '/our-scooter'
+      preLoaderRoute: typeof OurScooterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/our-bike': {
       id: '/our-bike'
       path: '/our-bike'
@@ -288,6 +381,13 @@ declare module '@tanstack/react-router' {
       path: '/how-it-works'
       fullPath: '/how-it-works'
       preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guess-rent': {
+      id: '/guess-rent'
+      path: '/guess-rent'
+      fullPath: '/guess-rent'
+      preLoaderRoute: typeof GuessRentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faqs': {
@@ -342,15 +442,20 @@ const rootRouteChildren: RootRouteChildren = {
   CancellationPolicyRoute: CancellationPolicyRoute,
   ContactRoute: ContactRoute,
   FaqsRoute: FaqsRoute,
+  GuessRentRoute: GuessRentRoute,
   HowItWorksRoute: HowItWorksRoute,
   OurBikeRoute: OurBikeRoute,
+  OurScooterRoute: OurScooterRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   RefundPolicyRoute: RefundPolicyRoute,
   RegisterRoute: RegisterRoute,
   RiderDashboardRoute: RiderDashboardRoute,
+  SavingsRoute: SavingsRoute,
+  ScooterRoute: ScooterRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  WaitlistRoute: WaitlistRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

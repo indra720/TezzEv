@@ -1,72 +1,55 @@
-import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronRight, Home } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import scooterCutout from "@/assets/tezzev-light.jpg";
 
-export function PageHeader({
-  title,
-  subtitle,
-  eyebrow,
-  breadcrumb,
-  children,
-}: {
+interface PageHeaderProps {
   title: string;
-  subtitle?: string;
-  eyebrow?: string;
-  breadcrumb?: string;
-  children?: ReactNode;
-}) {
+  subtitle: string;
+  breadcrumb: string;
+}
+
+export function PageHeader({ title, subtitle, breadcrumb }: PageHeaderProps) {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-secondary text-white">
-      {/* Decorative glows */}
-      <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-brand/30 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-brand/10 blur-3xl" />
-      {/* Grid pattern */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-          maskImage: "radial-gradient(ellipse at center, black 40%, transparent 75%)",
-        }}
-      />
+    <section className="relative overflow-hidden bg-skywash border-b border-blue-200/80 py-10 md:py-14">
+      {/* Soft Background Glow Blobs */}
+      <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute right-1/3 top-1/2 h-64 w-64 rounded-full bg-cyan-400/20 blur-2xl" />
+      <div className="pointer-events-none absolute inset-0 pattern-dots opacity-25" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-6  sm:px-6 lg:px-8">
-        {/* Breadcrumb */}
-        <nav className="mb-5 flex items-center gap-1.5 text-xs font-medium text-white/60">
-          <Link to="/" className="inline-flex items-center gap-1 transition hover:text-brand">
-            <Home className="h-3.5 w-3.5" /> Home
-          </Link>
-          <ChevronRight className="h-3.5 w-3.5" />
-          <span className="text-white">{breadcrumb ?? title}</span>
-        </nav>
+      <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="max-w-3xl space-y-2">
+            {/* Breadcrumb */}
+            <nav className="flex items-center gap-1.5 text-xs text-[#4B587C] mb-2 font-semibold">
+              <Link to="/" className="hover:text-blue-700 transition-colors">
+                Home
+              </Link>
+              <ChevronRight className="h-3.5 w-3.5 text-slate-400" />
+              <span className="text-blue-700 font-extrabold">{breadcrumb}</span>
+            </nav>
 
-        {eyebrow && (
-          <span className="inline-block rounded-full border border-brand/40 bg-brand/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-brand">
-            {eyebrow}
-          </span>
-        )}
-        <h1
-          className={`${eyebrow ? "mt-4" : ""} max-w-3xl text-4xl text-white  leading-[1.05] tracking-tight `}
-        >
-          {title.includes("|") ? (
-            <>
-              {title.split("|")[0]}
-              <span className="text-brand">{
-              title.split("|")[1]}</span>
-            </>
-          ) : (
-            title
-          )}
-        </h1>
-        {subtitle && (
-          <p className="mt-4 max-w-2xl text-base text-white/70 sm:text-lg">{subtitle}</p>
-        )}
-        {children && <div className="mt-8">{children}</div>}
+            {/* Title */}
+            <h1 className="font-heading font-black text-3xl sm:text-4xl md:text-5xl text-[#0B1B4D] tracking-tight">
+              {title}
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg text-[#3A4668] font-sans max-w-2xl leading-relaxed">
+              {subtitle}
+            </p>
+          </div>
+
+          {/* Faint Scooter Preview Graphic on Right */}
+          <div className="hidden md:block relative w-48 h-32 opacity-95 shrink-0">
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-blue-600/25 to-cyan-400/20 blur-sm" />
+            <img
+              src={scooterCutout}
+              alt="TezzEV Scooter"
+              className="relative w-full h-full object-cover rounded-2xl shadow-lg border border-blue-200"
+            />
+          </div>
+        </div>
       </div>
-
-      {/* Bottom fade to page */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-background/0" />
     </section>
   );
 }
