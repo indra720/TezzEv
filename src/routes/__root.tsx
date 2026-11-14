@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -38,7 +39,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -134,8 +135,8 @@ function RootComponent() {
         {/* Clean Sticky Header */}
         <Navbar />
 
-        {/* Multi-Page Route Outlet */}
-        <main className="flex-1 pb-16 sm:pb-0">
+        {/* Multi-Page Route Outlet (Exact top padding for fixed navbar: 64px mobile, 104px desktop) */}
+        <main className="flex-1 pt-16 md:pt-[104px] pb-16 sm:pb-0">
           <Outlet />
         </main>
 

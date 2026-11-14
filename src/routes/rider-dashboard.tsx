@@ -57,31 +57,27 @@ function RiderDashboardPage() {
   };
 
   return (
-    <div className="bg-white text-[#081330] w-full">
-      {/* 1. Page Header */}
+    <div className="bg-white text-[#0B1B4D] w-full">
+      {/* 1. Page Header (Clean Light) */}
       <PageHeader
         breadcrumb="Rider Dashboard"
         title="Rider Cockpit Preview"
         subtitle="Live preview of your rider profile, wallet balance, assigned vehicle, and emergency help."
       />
 
-      <section className="relative overflow-hidden py-12 md:py-16 bg-mesh border-b border-blue-200/80">
-        <div className="pointer-events-none absolute -left-20 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute right-10 bottom-10 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
-        <div className="pointer-events-none absolute inset-0 pattern-dots opacity-30" />
-
-        <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
+      <section className="py-12 md:py-16 bg-[#F8FAFC] border-b border-slate-200">
+        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Left 8 Cols */}
             <div className="lg:col-span-8 space-y-6">
               {/* Profile Card */}
-              <div className="clean-card p-6 sm:p-8">
+              <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xs p-6 sm:p-8">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="h-14 w-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                  <div className="h-14 w-14 rounded-2xl bg-blue-50 text-[#1647E8] flex items-center justify-center font-bold">
                     <User className="h-7 w-7" />
                   </div>
                   <div>
-                    <h2 className="font-heading font-bold text-xl text-[#081330]">Rahul Sharma</h2>
+                    <h2 className="font-heading font-bold text-xl text-[#0B1B4D]">Rahul Sharma</h2>
                     <p className="text-xs text-slate-500">Pilot ID: TEZZ-PILOT-#000842 • Jaipur Hub</p>
                   </div>
                 </div>
@@ -100,7 +96,7 @@ function RiderDashboardPage() {
                   </div>
                   <div>
                     <span className="text-slate-400 font-medium">Battery Swaps:</span>
-                    <div className="font-bold text-blue-600 mt-0.5">Unlimited</div>
+                    <div className="font-bold text-[#1647E8] mt-0.5">Unlimited</div>
                   </div>
                   <div>
                     <span className="text-slate-400 font-medium">Account:</span>
@@ -110,7 +106,7 @@ function RiderDashboardPage() {
               </div>
 
               {/* Wallet & Streak Ring Card */}
-              <div className="clean-card p-6 sm:p-8">
+              <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xs p-6 sm:p-8">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
                     <div className="icon-box">

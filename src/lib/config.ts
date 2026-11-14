@@ -8,6 +8,31 @@ export const TEZZ_CONFIG = {
     launchTagline: "Something TEZZ is coming to your city.",
     copyrightYear: 2026,
   },
+  videos: {
+    heroBg: "/videos/hero-bg.mp4",
+    scooterTour: "/videos/scooter-tour.mp4",
+    watchInAction: "/videos/hero-bg.mp4",
+    actionClip1: "/videos/hero-bg.mp4",
+    actionClip2: "/videos/scooter-tour.mp4",
+    actionClip3: "/videos/hero-bg.mp4",
+    howItWorksFull: "/videos/scooter-tour.mp4",
+    step1: "/videos/hero-bg.mp4",
+    step2: "/videos/scooter-tour.mp4",
+    step3: "/videos/hero-bg.mp4",
+    step4: "/videos/scooter-tour.mp4",
+    aboutBrandStory: "/videos/hero-bg.mp4",
+    pricingExplainer: "/videos/scooter-tour.mp4",
+    savingsExplainer: "/videos/hero-bg.mp4",
+    guessRentTeaser: "/videos/hero-bg.mp4",
+    docUpload: "/videos/scooter-tour.mp4",
+    galleryHeadlight: "/videos/scooter-tour.mp4",
+    galleryBattery: "/videos/hero-bg.mp4",
+    galleryDisplay: "/videos/scooter-tour.mp4",
+    galleryRiding: "/videos/hero-bg.mp4",
+    blogPetrolVsEv: "/videos/hero-bg.mp4",
+    blogBatterySwap: "/videos/scooter-tour.mp4",
+    blogRiderSafety: "/videos/hero-bg.mp4",
+  },
   placeholders: {
     dailyRent: "Rs [XXX]",
     dailyRentDisplay: "Rs [XXX] / day",
@@ -182,3 +207,6 @@ TezzEV electric scooter ke saath petrol kharch 100% khatam ho jata hai. Flat ren
     },
   ],
 };
+
+export const TEZZ_VIDEOS = TEZZ_CONFIG.videos;
+

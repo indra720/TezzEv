@@ -10,8 +10,10 @@ import {
   Battery,
   Sparkles,
   MapPin,
+  Phone,
 } from "lucide-react";
 import newHeadLogo from "@/TezzEv/NewHeadlogo.png";
+import { TEZZ_CONFIG } from "@/lib/config";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -50,11 +52,41 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-white/95 backdrop-blur-md shadow-xs">
-      {/* Container with exact 50px desktop padding and fluid responsive layout */}
+    <header className="fixed top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs">
+      {/* Sleek Top Contact/Announcement Bar (RideWay style - 32px height) */}
+      <div className="bg-[#0B1B4D] text-white text-[11px] sm:text-xs h-[32px] px-4 hidden md:flex items-center">
+        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px] flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 text-blue-200">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>{TEZZ_CONFIG.placeholders.targetLaunch}</span>
+            </span>
+            <span className="text-white/40">•</span>
+            <span className="text-slate-300">Commercial Electric Scooter Rentals for Delivery Partners</span>
+          </div>
+
+          <div className="flex items-center gap-5">
+            <a
+              href="tel:+919950455461"
+              className="flex items-center gap-1.5 text-blue-200 hover:text-white transition-colors"
+            >
+              <Phone className="h-3 w-3 text-cyan-400" />
+              <span>Jaipur Fleet Desk: {TEZZ_CONFIG.launch.phone}</span>
+            </a>
+            <Link
+              to="/waitlist"
+              className="text-cyan-300 font-bold hover:underline"
+            >
+              VIP Access →
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Clean White Navbar (64px on mobile, 72px on desktop) */}
       <div className="w-full max-w-[1680px] mx-auto px-3.5 sm:px-8 lg:px-[50px]">
-        <div className="flex h-16 sm:h-18 items-center justify-between gap-2 sm:gap-4">
-          {/* Brand Logo - Directly from src/TezzEv/NewHeadlogo.png */}
+        <div className="flex h-16 md:h-[72px] items-center justify-between gap-2 sm:gap-4">
+          {/* Brand Logo - Crisp on White Background */}
           <div className="shrink-0 flex items-center">
             <Link
               to="/"
@@ -64,7 +96,7 @@ export function Navbar() {
               <img
                 src={newHeadLogo}
                 alt="TezzEV - Go Green Go Far"
-                className="h-8 sm:h-10 md:h-12 w-auto object-contain block bg-white max-w-[145px] sm:max-w-[200px] md:max-w-none"
+                className="h-8 sm:h-10 md:h-11 w-auto object-contain block max-w-[145px] sm:max-w-[200px] md:max-w-none"
               />
             </Link>
           </div>
@@ -81,8 +113,8 @@ export function Navbar() {
                   to={link.to}
                   className={`px-3 py-1.5 rounded-full text-sm font-bold transition-all ${
                     isActive
-                      ? "text-[#1647E8] bg-blue-50 font-extrabold shadow-xs"
-                      : "text-[#3A4668] hover:text-[#1647E8] hover:bg-slate-50"
+                      ? "text-[#1647E8] bg-blue-50/90 font-extrabold shadow-2xs"
+                      : "text-slate-700 hover:text-[#1647E8] hover:bg-slate-50"
                   }`}
                 >
                   {link.label}
@@ -98,7 +130,7 @@ export function Navbar() {
                 className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-bold transition-all cursor-pointer ${
                   exploreOpen
                     ? "text-[#1647E8] bg-blue-50"
-                    : "text-[#3A4668] hover:text-[#1647E8] hover:bg-slate-50"
+                    : "text-slate-700 hover:text-[#1647E8] hover:bg-slate-50"
                 }`}
                 aria-expanded={exploreOpen}
               >
@@ -109,12 +141,12 @@ export function Navbar() {
               </button>
 
               {exploreOpen && (
-                <div className="absolute top-full right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-white p-4 shadow-2xl border border-blue-100 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="absolute top-full right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-white p-4 shadow-xl border border-slate-200 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   <div className="grid grid-cols-2 gap-2 text-xs mb-3">
                     <Link
                       to="/register"
                       onClick={() => setExploreOpen(false)}
-                      className="p-3 rounded-xl hover:bg-blue-50 transition-colors flex flex-col gap-1 border border-slate-100"
+                      className="p-3 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors flex flex-col gap-1 border border-slate-100"
                     >
                       <div className="flex items-center gap-1.5 font-bold text-[#0B1B4D]">
                         <Zap className="h-3.5 w-3.5 text-[#1647E8]" />
@@ -128,7 +160,7 @@ export function Navbar() {
                     <Link
                       to="/guess-rent"
                       onClick={() => setExploreOpen(false)}
-                      className="p-3 rounded-xl hover:bg-emerald-50 transition-colors flex flex-col gap-1 border border-slate-100"
+                      className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 transition-colors flex flex-col gap-1 border border-slate-100"
                     >
                       <div className="flex items-center gap-1.5 font-bold text-[#0B1B4D]">
                         <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
@@ -140,7 +172,7 @@ export function Navbar() {
                     <Link
                       to="/blog"
                       onClick={() => setExploreOpen(false)}
-                      className="p-3 rounded-xl hover:bg-slate-50 transition-colors flex flex-col gap-1 border border-slate-100"
+                      className="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors flex flex-col gap-1 border border-slate-100"
                     >
                       <div className="flex items-center gap-1.5 font-bold text-[#0B1B4D]">
                         <Battery className="h-3.5 w-3.5 text-[#1647E8]" />
@@ -152,7 +184,7 @@ export function Navbar() {
                     <Link
                       to="/rider-dashboard"
                       onClick={() => setExploreOpen(false)}
-                      className="p-3 rounded-xl hover:bg-slate-50 transition-colors flex flex-col gap-1 border border-slate-100"
+                      className="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors flex flex-col gap-1 border border-slate-100"
                     >
                       <div className="flex items-center gap-1.5 font-bold text-[#0B1B4D]">
                         <User className="h-3.5 w-3.5 text-[#1647E8]" />
@@ -180,19 +212,19 @@ export function Navbar() {
             </div>
           </nav>
 
-          {/* Desktop Right Action Buttons (Only on lg: 1024px+) */}
+          {/* Desktop Right Action Buttons (RideWay Clean Style) */}
           <div className="hidden lg:flex items-center gap-3 shrink-0">
             <Link
               to="/rider-dashboard"
-              className="btn-outline-blue text-xs sm:text-sm py-2 px-4 whitespace-nowrap"
+              className="inline-flex items-center gap-2 border border-slate-300 hover:border-slate-400 text-[#0B1B4D] hover:bg-slate-50 text-xs sm:text-sm font-bold py-2 px-4 rounded-full transition-all"
             >
-              <User className="h-4 w-4" />
+              <User className="h-4 w-4 text-slate-600" />
               <span>Rider Login</span>
             </Link>
 
             <Link
               to="/waitlist"
-              className="btn-primary text-xs sm:text-sm py-1 px-5 whitespace-nowrap"
+              className="inline-flex items-center gap-2 bg-[#1647E8] hover:bg-[#2D6BFF] text-white text-xs sm:text-sm font-bold py-2 px-5 rounded-full shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
             >
               <span>Join Waitlist</span>
               <ArrowRight className="h-4 w-4" />
@@ -200,11 +232,10 @@ export function Navbar() {
           </div>
 
           {/* Tablet & Mobile Right Bar (< lg: below 1024px) */}
-          {/* Exactly ONE clean CTA button + hamburger menu. Strictly prevented from clipping or overflowing */}
           <div className="flex lg:hidden items-center gap-1.5 sm:gap-3 shrink-0">
             <Link
               to="/waitlist"
-              className="btn-primary text-[11px] sm:text-sm py-1.5 sm:py-2 px-2.5 sm:px-4.5 whitespace-nowrap shrink-0 rounded-full shadow-xs"
+              className="inline-flex items-center gap-1.5 bg-[#1647E8] hover:bg-[#2D6BFF] text-white text-[11px] sm:text-sm font-bold py-1.5 sm:py-2 px-3 sm:px-4.5 whitespace-nowrap shrink-0 rounded-full shadow-xs"
             >
               <span>Join Waitlist</span>
               <ArrowRight className="h-3.5 w-3.5 hidden sm:inline-block" />
@@ -227,10 +258,7 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Thin Brand-Gradient Bottom Border Accent */}
-      <div className="h-[2.5px] w-full bg-brand-gradient" />
-
-      {/* Mobile & Tablet Drawer Menu */}
+      {/* Mobile & Tablet Drawer Menu (Clean White) */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-white px-4 sm:px-8 pt-4 pb-6 shadow-2xl animate-in slide-in-from-top-2 duration-200">
           <nav className="grid grid-cols-2 gap-2 mb-4">
@@ -245,7 +273,7 @@ export function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-3 py-2.5 rounded-xl text-sm font-bold transition-colors ${
                     isActive
-                      ? "text-[#1647E8] bg-blue-50 font-extrabold"
+                      ? "text-[#1647E8] bg-blue-50 font-extrabold shadow-2xs"
                       : "text-slate-700 hover:bg-slate-50"
                   }`}
                 >
@@ -260,7 +288,7 @@ export function Navbar() {
             <Link
               to="/register"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors text-xs font-bold text-slate-700"
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50 transition-colors text-xs font-bold text-slate-700 border border-slate-100"
             >
               <Zap className="h-4 w-4 mx-auto mb-1 text-[#1647E8]" />
               <span>Register</span>
@@ -268,7 +296,7 @@ export function Navbar() {
             <Link
               to="/guess-rent"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition-colors text-xs font-bold text-slate-700"
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 transition-colors text-xs font-bold text-slate-700 border border-slate-100"
             >
               <Sparkles className="h-4 w-4 mx-auto mb-1 text-emerald-600" />
               <span>Guess Rent</span>
@@ -276,7 +304,7 @@ export function Navbar() {
             <Link
               to="/blog"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors text-xs font-bold text-slate-700"
+              className="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors text-xs font-bold text-slate-700 border border-slate-100"
             >
               <Battery className="h-4 w-4 mx-auto mb-1 text-[#1647E8]" />
               <span>Blog</span>
@@ -287,15 +315,15 @@ export function Navbar() {
             <Link
               to="/rider-dashboard"
               onClick={() => setMobileMenuOpen(false)}
-              className="btn-outline-blue flex-1 justify-center text-sm py-2.5"
+              className="inline-flex items-center justify-center gap-2 border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold text-sm py-2.5 px-4 rounded-xl flex-1 transition-colors"
             >
               <User className="h-4 w-4" />
-              <span>Rider Login / Cockpit</span>
+              <span>Rider Login</span>
             </Link>
             <Link
               to="/waitlist"
               onClick={() => setMobileMenuOpen(false)}
-              className="btn-primary flex-1 justify-center text-sm py-2.5"
+              className="inline-flex items-center justify-center gap-2 bg-[#1647E8] hover:bg-[#2D6BFF] text-white font-bold text-sm py-2.5 px-4 rounded-xl flex-1 shadow-md transition-colors"
             >
               <span>Join Waitlist</span>
               <ArrowRight className="h-4 w-4" />

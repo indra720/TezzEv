@@ -35,7 +35,7 @@ function RefundPolicyPage() {
                   1. Security Deposit Refund
                 </h3>
                 <p>
-                  When you return your scooter and battery at any Tezz Hub, our hub team does a quick 5-minute check. Your full refundable deposit is credited straight to your bank account within {TEZZ_CONFIG.placeholders.depositRefundHours}.
+                  When you return your scooter and battery at any Tezz Hub, our hub team does a quick 5-minute check. Your full refundable deposit is credited straight to your bank account within {TEZZ_CONFIG.placeholders.depositRefund}.
                 </p>
               </div>
 

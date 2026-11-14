@@ -16,6 +16,9 @@ import {
   Check,
 } from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
+import { TEZZ_VIDEOS } from "@/lib/config";
+import { VideoCard } from "@/components/VideoCard";
+import posterLight from "@/assets/tezzev-light.jpg";
 
 export const Route = createFileRoute("/register")({
   component: RegisterPage,
@@ -126,38 +129,34 @@ function RegisterPage() {
   const batteryPercent = Math.round(((currentStep + 1) / steps.length) * 100);
 
   return (
-    <div className="bg-white text-[#081330] w-full">
-      {/* 1. Page Header */}
+    <div className="bg-white text-[#0B1B4D] w-full">
+      {/* 1. Page Header (Clean Light) */}
       <PageHeader
         breadcrumb="Register"
         title="Rider Pre-Registration"
         subtitle="Quick paperless verification. Zero advance deduction until vehicle handover."
       />
 
-      <section className="relative overflow-hidden py-12 md:py-16 bg-mesh border-b border-blue-200/80">
-        <div className="pointer-events-none absolute -left-20 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute right-10 bottom-10 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
-        <div className="pointer-events-none absolute inset-0 pattern-dots opacity-30" />
-
-        <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
+      <section className="py-12 md:py-16 bg-[#F8FAFC] border-b border-slate-200">
+        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
           <div className="max-w-4xl mx-auto">
           {/* Clean Progress Meter */}
-          <div className="clean-card p-5 mb-8 bg-slate-50/70 border border-slate-200">
-            <div className="flex items-center justify-between text-xs font-semibold text-slate-700 mb-2">
-              <span className="text-blue-600">Step {currentStep + 1} of {steps.length}: {steps[currentStep]}</span>
+          <div className="p-5 mb-8 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+            <div className="flex items-center justify-between text-xs font-bold text-[#0B1B4D] mb-2">
+              <span className="text-[#1647E8]">Step {currentStep + 1} of {steps.length}: {steps[currentStep]}</span>
               <span>{batteryPercent}% Complete</span>
             </div>
 
-            <div className="h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+            <div className="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
               <div
-                className="h-full rounded-full bg-blue-600 transition-all duration-300"
+                className="h-full rounded-full bg-[#1647E8] transition-all duration-300"
                 style={{ width: `${batteryPercent}%` }}
               />
             </div>
           </div>
 
           {/* Form Card */}
-          <div className="clean-card p-6 sm:p-10 border border-slate-200">
+          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm">
             {/* STEP 0: BASICS */}
             {currentStep === 0 && (
               <div className="space-y-4">
@@ -267,10 +266,22 @@ function RegisterPage() {
             {/* STEP 1: KYC */}
             {currentStep === 1 && (
               <div className="space-y-4">
-                <h3 className="font-heading font-bold text-xl text-[#081330] border-b border-slate-100 pb-3 flex items-center gap-2">
-                  <ShieldCheck className="h-5 w-5 text-blue-600" />
+                <h3 className="font-heading font-bold text-xl text-[#0B1B4D] border-b border-slate-100 pb-3 flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5 text-[#1647E8]" />
                   <span>Step 2: Driving Licence & Aadhaar Check</span>
                 </h3>
+
+                {/* Video Guide for uploading documents */}
+                <div className="mb-4">
+                  <VideoCard
+                    src={TEZZ_VIDEOS.docUpload}
+                    poster={posterLight}
+                    title="How to Take Clear Document Photos"
+                    duration="0:40"
+                    badge="Video Help"
+                    description="Quick guide to ensure your Driving Licence and Aadhaar are approved on first attempt without glare or blur."
+                  />
+                </div>
 
                 {/* PAN */}
                 <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2">

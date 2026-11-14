@@ -43,32 +43,28 @@ function ContactPage() {
   };
 
   return (
-    <div className="bg-white text-[#081330] w-full">
-      {/* 1. Page Header */}
+    <div className="bg-white text-[#0B1B4D] w-full">
+      {/* 1. Page Header (Clean Light) */}
       <PageHeader
         breadcrumb="Contact"
         title="Contact TezzEV"
         subtitle="Have questions about vehicle booking, battery swapping, or waitlist? We're here to help."
       />
 
-      {/* 2. Contact Cards & Form (Skywash Background with Layered Depth) */}
-      <section className="relative overflow-hidden py-12 md:py-16 bg-skywash border-b border-blue-200/80">
-        <div className="pointer-events-none absolute -left-20 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute right-10 bottom-10 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
-        <div className="pointer-events-none absolute inset-0 pattern-dots opacity-30" />
-
-        <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
+      {/* 2. Contact Cards & Form (Soft Slate Background) */}
+      <section className="py-12 md:py-16 bg-[#F8FAFC] border-b border-slate-200">
+        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             {/* Left 5 Cols: Cards */}
             <div className="lg:col-span-5 space-y-4">
               {/* Phone */}
-              <div className="clean-card p-5 flex items-start gap-4">
-                <div className="icon-box shrink-0">
+              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-5 flex items-start gap-4">
+                <div className="h-10 w-10 rounded-xl bg-blue-50 text-[#1647E8] flex items-center justify-center shrink-0">
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-slate-500 uppercase">Phone Helpline</div>
-                  <a href={`tel:${TEZZ_CONFIG.launch.phone}`} className="font-heading font-bold text-base text-[#081330] hover:text-blue-600 block mt-0.5">
+                  <a href={`tel:${TEZZ_CONFIG.launch.phone}`} className="font-heading font-bold text-base text-[#0B1B4D] hover:text-[#1647E8] block mt-0.5">
                     {TEZZ_CONFIG.launch.phone}
                   </a>
                   <div className="text-xs text-slate-500 mt-0.5">Support & 24/7 Breakdown</div>
@@ -76,13 +72,13 @@ function ContactPage() {
               </div>
 
               {/* Email */}
-              <div className="clean-card p-5 flex items-start gap-4">
-                <div className="icon-box shrink-0">
+              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-5 flex items-start gap-4">
+                <div className="h-10 w-10 rounded-xl bg-blue-50 text-[#1647E8] flex items-center justify-center shrink-0">
                   <Mail className="h-5 w-5" />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-slate-500 uppercase">Email Us</div>
-                  <a href={`mailto:${TEZZ_CONFIG.launch.email}`} className="font-heading font-bold text-base text-[#081330] hover:text-blue-600 block mt-0.5">
+                  <a href={`mailto:${TEZZ_CONFIG.launch.email}`} className="font-heading font-bold text-base text-[#0B1B4D] hover:text-[#1647E8] block mt-0.5">
                     {TEZZ_CONFIG.launch.email}
                   </a>
                   <div className="text-xs text-slate-500 mt-0.5">General & business inquiries</div>
@@ -90,8 +86,8 @@ function ContactPage() {
               </div>
 
               {/* WhatsApp */}
-              <div className="clean-card p-5 flex items-start gap-4">
-                <div className="icon-box shrink-0 bg-emerald-50 text-emerald-600">
+              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-5 flex items-start gap-4">
+                <div className="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <FaWhatsapp className="h-5 w-5" />
                 </div>
                 <div>
@@ -109,7 +105,7 @@ function ContactPage() {
               </div>
 
               {/* Address & Hours */}
-              <div className="clean-card p-5 space-y-3 bg-slate-50/50">
+              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-5 space-y-3">
                 <div className="flex items-start gap-3">
                   <MapPin className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
                   <span className="text-xs text-slate-700 leading-relaxed">
@@ -127,8 +123,8 @@ function ContactPage() {
 
             {/* Right 7 Cols: Inquiry Form */}
             <div className="lg:col-span-7">
-              <div className="clean-card p-6 sm:p-8">
-                <h3 className="font-heading font-bold text-xl text-[#081330] mb-2">
+              <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xs p-6 sm:p-8">
+                <h3 className="font-heading font-bold text-xl text-[#0B1B4D] mb-2">
                   Send us a message
                 </h3>
                 <p className="text-xs text-slate-500 mb-6">

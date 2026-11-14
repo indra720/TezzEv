@@ -37,7 +37,7 @@ function TermsPage() {
                 </h3>
                 <p>
                   All electric scooters, swappable battery packs, and charging accessories belong to{" "}
-                  {TEZZ_CONFIG.brand.companyName}. You get a commercial rental license to ride and
+                  {TEZZ_CONFIG.brand.name}. You get a commercial rental license to ride and
                   earn.
                 </p>
               </div>

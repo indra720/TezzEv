@@ -50,36 +50,31 @@ export function WaitlistPage() {
 
   return (
     <div className="bg-white text-[#0B1B4D] w-full">
-      {/* 1. Page Header */}
+      {/* 1. Page Header (Clean Light) */}
       <PageHeader
         breadcrumb="Waitlist"
         title="Join the Launch Waitlist"
         subtitle="Be the first to get vehicle access when TezzEV starts commercial operations in Jaipur. 100% free priority pass."
       />
 
-      {/* 2. Waitlist Stage with Tinted Mesh Background & Layered Card Depth */}
-      <section className="relative overflow-hidden py-12 md:py-16 bg-mesh border-b border-blue-100">
-        {/* Soft Background Blurred Blobs */}
-        <div className="pointer-events-none absolute -left-20 top-1/4 h-80 w-80 rounded-full bg-blue-500/25 blur-3xl" />
-        <div className="pointer-events-none absolute -right-20 bottom-10 h-96 w-96 rounded-full bg-cyan-400/20 blur-3xl" />
-        <div className="pointer-events-none absolute inset-0 pattern-dots opacity-40" />
-
+      {/* 2. Waitlist Stage with Soft Slate Background */}
+      <section className="py-12 md:py-16 bg-[#F8FAFC] border-b border-slate-200">
         <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
           <div>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               {/* Left 6 Cols: Rich Value Proposition */}
               <div className="lg:col-span-6 space-y-6">
                 <div>
-                  <div className="section-badge mb-3">
-                    <Sparkles className="h-3.5 w-3.5 text-blue-600" />
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-[#1647E8] mb-3 border border-blue-100 shadow-2xs">
+                    <Sparkles className="h-3.5 w-3.5 text-[#1647E8]" />
                     <span>Priority Queue • Jaipur Phase 01</span>
                   </div>
 
                   <h2 className="font-heading font-black text-3xl sm:text-4xl lg:text-5xl text-[#0B1B4D] tracking-tight leading-[1.15]">
-                    Lock your priority slot for <span className="text-gradient-brand">TezzEV</span>
+                    Lock your priority slot for <span className="text-[#1647E8]">TezzEV</span>
                   </h2>
 
-                  <p className="mt-3 text-base sm:text-lg text-[#3A4668] leading-relaxed">
+                  <p className="mt-3 text-base sm:text-lg text-[#4B587C] leading-relaxed">
                     First batch fleet numbers are limited. Pre-registered riders get vehicle key handover preference, free battery swaps, and exclusive launch rental pricing.
                   </p>
                 </div>
@@ -143,13 +138,10 @@ export function WaitlistPage() {
                 </div>
               </div>
 
-              {/* Right 6 Cols: Layered Floating Form Card */}
+              {/* Right 6 Cols: Clean White Form Card */}
               <div className="lg:col-span-6 relative">
-                {/* Offset Colored Backdrop Panel for Depth */}
-                <div className="absolute -inset-2.5 rounded-[32px] bg-gradient-to-tr from-blue-600/20 via-sky-400/20 to-cyan-300/20 rotate-1 blur-xs pointer-events-none" />
-
-                {/* Main White Floating Card */}
-                <div className="relative rounded-3xl bg-white p-6 sm:p-10 shadow-2xl border border-blue-200/80">
+                {/* Main White Card */}
+                <div className="relative rounded-3xl bg-white p-6 sm:p-10 shadow-sm border border-slate-200">
                   {!isSubmitted ? (
                     <form onSubmit={handleSubmit} className="space-y-5">
                       <div className="border-b border-slate-100 pb-4">

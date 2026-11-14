@@ -55,32 +55,28 @@ function FaqsPage() {
   });
 
   return (
-    <div className="bg-white text-[#081330] w-full">
-      {/* 1. Page Header */}
+    <div className="bg-white text-[#0B1B4D] w-full">
+      {/* 1. Page Header (Clean Light) */}
       <PageHeader
         breadcrumb="FAQs"
         title="Frequently Asked Questions"
         subtitle="Quick answers to common questions about rentals, battery swapping, deposits, and safety."
       />
 
-      {/* 2. Search & Category Filters (Mesh Background) */}
-      <section className="relative overflow-hidden py-12 md:py-16 bg-mesh border-b border-blue-200/80">
-        <div className="pointer-events-none absolute -left-20 top-20 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute right-10 bottom-10 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
-        <div className="pointer-events-none absolute inset-0 pattern-dots opacity-30" />
-
-        <div className="relative z-10 w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
+      {/* 2. Search & Category Filters (Soft Slate Background) */}
+      <section className="py-12 md:py-16 bg-[#F8FAFC] border-b border-slate-200">
+        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-[50px]">
           <div className="max-w-5xl mx-auto">
-          <div className="clean-card p-4 sm:p-6 mb-8 bg-slate-50/60 border border-slate-200">
+          <div className="bg-white p-4 sm:p-6 mb-8 rounded-3xl border border-slate-200 shadow-2xs">
             {/* Search Input */}
-            <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white border border-slate-200">
+            <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-50 border border-slate-200">
               <Search className="h-4 w-4 text-slate-400 shrink-0" />
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search questions (e.g. 'deposit', 'battery', 'licence')..."
-                className="w-full bg-transparent text-sm text-slate-800 placeholder:text-slate-400 outline-none"
+                className="w-full bg-transparent text-sm text-[#0B1B4D] placeholder:text-slate-400 outline-none font-medium"
               />
             </div>
 
@@ -89,11 +85,12 @@ function FaqsPage() {
               {categories.map((c) => (
                 <button
                   key={c}
+                  type="button"
                   onClick={() => setSelectedCat(c)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-colors cursor-pointer ${
                     selectedCat === c
-                      ? "bg-blue-600 text-white"
-                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-100"
+                      ? "bg-[#1647E8] text-white shadow-2xs"
+                      : "bg-slate-100 text-[#4B587C] hover:bg-slate-200"
                   }`}
                 >
                   {c}
@@ -111,25 +108,25 @@ function FaqsPage() {
                   <div
                     key={faq.q}
                     onClick={() => setOpenIndex(isOpen ? null : i)}
-                    className="clean-card p-5 cursor-pointer"
+                    className="bg-white rounded-2xl p-5 cursor-pointer border border-slate-200/90 shadow-2xs hover:shadow-xs transition-shadow"
                   >
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <span className="text-xs px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-semibold shrink-0">
+                        <span className="text-xs px-2.5 py-0.5 rounded-md bg-blue-50 text-[#1647E8] font-bold shrink-0">
                           {faq.category}
                         </span>
-                        <h3 className="font-heading font-bold text-base text-[#081330]">
+                        <h3 className="font-heading font-bold text-base text-[#0B1B4D]">
                           {faq.q}
                         </h3>
                       </div>
                       <ChevronDown
                         className={`h-4 w-4 text-slate-400 shrink-0 transition-transform ${
-                          isOpen ? "rotate-180 text-blue-600" : ""
+                          isOpen ? "rotate-180 text-[#1647E8]" : ""
                         }`}
                       />
                     </div>
                     {isOpen && (
-                      <p className="mt-3 pt-3 border-t border-slate-100 text-sm text-slate-600 leading-relaxed">
+                      <p className="mt-3 pt-3 border-t border-slate-100 text-sm text-[#4B587C] leading-relaxed">
                         {faq.a}
                       </p>
                     )}
@@ -137,7 +134,7 @@ function FaqsPage() {
                 );
               })
             ) : (
-              <div className="p-8 text-center text-sm text-slate-500 clean-card">
+              <div className="p-8 text-center text-sm text-slate-500 bg-white rounded-2xl border border-slate-200">
                 No questions found matching "{query}".
               </div>
             )}
